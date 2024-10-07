@@ -31,22 +31,23 @@
     </div>
 
     <script>
-        document.querySelectorAll('.emoji').forEach(emoji => {
-            emoji.addEventListener('click', () => {
-                const text = emoji.textContent;
-                copyToClipboard(text);
-                alert('이모지가 클립보드에 복사되었습니다: ' + text);
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.emoji').forEach(emoji => {
+                emoji.addEventListener('click', () => {
+                    const text = emoji.textContent;
+                    copyToClipboard(text);
+                });
             });
-        });
 
-        function copyToClipboard(text) {
-            const tempInput = document.createElement('input');
-            tempInput.value = text;
-            document.body.appendChild(tempInput);
-            tempInput.select();
-            document.execCommand('copy');
-            document.body.removeChild(tempInput);
-        }
+            function copyToClipboard(text) {
+                // 최신 브라우저에서 권장되는 방식 사용
+                navigator.clipboard.writeText(text).then(() => {
+                    alert('이모지가 클립보드에 복사되었습니다: ' + text);
+                }).catch(err => {
+                    console.error('클립보드 복사 실패:', err);
+                });
+            }
+        });
     </script>
 </body>
 </html>
