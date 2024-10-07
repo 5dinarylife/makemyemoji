@@ -1,0 +1,27 @@
+{
+  "manifest_version": 3,
+  "name": "Emoji Macro Extension",
+  "version": "1.0",
+  "description": "이모지 창을 더 편하게 열어주는 크롬 익스텐션.",
+  "permissions": ["storage"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icon16.png",
+      "48": "icon48.png",
+      "128": "icon128.png"
+    }
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "commands": {
+    "open-emoji-window": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+E",
+        "mac": "Command+Shift+E"
+      },
+      "description": "이모지 선택 창을 엽니다."
+    }
+  }
+}
