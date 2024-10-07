@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이모지 선택</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 10px;
+            text-align: center;
+        }
+        .emoji {
+            font-size: 24px;
+            cursor: pointer;
+            margin: 10px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <h1>이모지 선택</h1>
+    <div id="emoji-list">
+        <span class="emoji">😀</span>
+        <span class="emoji">😂</span>
+        <span class="emoji">😍</span>
+        <span class="emoji">😎</span>
+        <span class="emoji">🤔</span>
+        <span class="emoji">👍</span>
+        <!-- 더 많은 이모지를 추가할 수 있습니다 -->
+    </div>
+
+    <script>
+        document.querySelectorAll('.emoji').forEach(emoji => {
+            emoji.addEventListener('click', () => {
+                const text = emoji.textContent;
+                copyToClipboard(text);
+                alert('이모지가 클립보드에 복사되었습니다: ' + text);
+            });
+        });
+
+        function copyToClipboard(text) {
+            const tempInput = document.createElement('input');
+            tempInput.value = text;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+        }
+    </script>
+</body>
+</html>
