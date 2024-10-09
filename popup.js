@@ -25,39 +25,45 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function loadFrequentEmojis() {
-        frequentEmojisContainer.innerHTML = '';
-        const frequentEmojis = getFrequentEmojis();
-        if (frequentEmojis.length > 0) {
-            frequentEmojis.forEach(emoji => {
-                const span = document.createElement('span');
-                span.className = 'emoji';
-                span.textContent = emoji;
-                span.addEventListener('click', () => {
-                    copyToClipboard(emoji);
-                });
-
-                let pressTimer;
-                span.addEventListener('mousedown', () => {
-                    pressTimer = setTimeout(() => {
-                        removeEmojiFromFrequent(emoji);
-                        showToast('등록된 이미지가 삭제되었습니다!');
-                    }, 1000); 
-                });
-
-                span.addEventListener('mouseup', () => {
-                    clearTimeout(pressTimer);
-                });
-
-                span.addEventListener('mouseleave', () => {
-                    clearTimeout(pressTimer);
-                });
-
-                frequentEmojisContainer.appendChild(span);
+    frequentEmojisContainer.innerHTML = '';
+    const frequentEmojis = getFrequentEmojis();
+    if (frequentEmojis.length > 0) {
+        frequentEmojis.forEach(emoji => {
+            const span = document.createElement('span');
+            span.className = 'emoji';
+            span.textContent = emoji;
+            span.addEventListener('click', () => {
+                copyToClipboard(emoji);
             });
-        } else {
-            frequentEmojisContainer.innerHTML = '<div class="no-frequent">이모지를 길게 누르면 자주 쓰는 이모지로 등록됩니다.</div>';
-        }
+
+            // 길게 눌렀을 때 삭제
+            let pressTimer;
+            span.addEventListener('mousedown', () => {
+                pressTimer = setTimeout(() => {
+                    removeEmojiFromFrequent(emoji);
+                    showToast('이모지가 자주 쓰는 목록에서 삭제되었습니다!');
+                }, 1000); 
+            });
+
+            span.addEventListener('mouseup', () => {
+                clearTimeout(pressTimer);
+            });
+
+            span.addEventListener('mouseleave', () => {
+                clearTimeout(pressTimer);
+            });
+
+            frequentEmojisContainer.appendChild(span);
+        });
+    } else {
+        // 자주 쓰는 이모지가 없을 때 메시지 표시
+        const message = document.createElement('div');
+        message.className = 'no-frequent';
+        message.textContent = '등록된 자주 쓰는 이모지가 없습니다.';
+        frequentEmojisContainer.appendChild(message);
     }
+}
+
 
     function loadEmojis(category) {
         emojiContainer.innerHTML = ''; 
