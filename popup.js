@@ -42,10 +42,29 @@ document.addEventListener('DOMContentLoaded', () => {
             const span = document.createElement('span');
             span.className = 'emoji';
             span.textContent = emoji;
+
+            // 클릭 이벤트 (복사 기능)
             span.addEventListener('click', () => {
                 copyToClipboard(emoji);
-                addEmojiToFrequent(emoji);
             });
+
+            // 길게 클릭 (자주 쓰는 이모지 등록 기능)
+            let pressTimer;
+            span.addEventListener('mousedown', () => {
+                pressTimer = setTimeout(() => {
+                    addEmojiToFrequent(emoji);
+                    showToast('이모지가 자주 쓰는 목록에 추가되었습니다!');
+                }, 1000); // 1초 이상 눌렀을 때 등록
+            });
+
+            span.addEventListener('mouseup', () => {
+                clearTimeout(pressTimer);
+            });
+
+            span.addEventListener('mouseleave', () => {
+                clearTimeout(pressTimer);
+            });
+
             emojiContainer.appendChild(span);
         });
     }
@@ -53,14 +72,15 @@ document.addEventListener('DOMContentLoaded', () => {
     function copyToClipboard(text) {
         if (navigator.clipboard && navigator.clipboard.writeText) {
             navigator.clipboard.writeText(text).then(() => {
-                showToast();
+                showToast('이모지가 클립보드에 복사되었습니다!');
             }).catch(err => {
                 console.error('클립보드 복사 실패:', err);
             });
         }
     }
 
-    function showToast() {
+    function showToast(message) {
+        toast.textContent = message;
         toast.classList.add('show');
         setTimeout(() => {
             toast.classList.remove('show');
