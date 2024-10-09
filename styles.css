@@ -73,7 +73,7 @@ h1 {
 
 /* 자주 쓰는 이모지가 없을 때 */
 .no-frequent {
-    font-size: 12px;
+    font-size: 10px;
     color: #888;
     margin: 10px 0;
 }
