@@ -25,9 +25,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function loadFrequentEmojis() {
-    frequentEmojisContainer.innerHTML = '';
+    const noFrequentMessage = document.getElementById('no-frequent-message');
     const frequentEmojis = getFrequentEmojis();
+
     if (frequentEmojis.length > 0) {
+        frequentEmojisContainer.innerHTML = '';
+        noFrequentMessage.style.display = 'none'; // 메시지 숨기기
+        frequentEmojisContainer.style.display = 'grid'; // 그리드 표시
+
         frequentEmojis.forEach(emoji => {
             const span = document.createElement('span');
             span.className = 'emoji';
@@ -41,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
             span.addEventListener('mousedown', () => {
                 pressTimer = setTimeout(() => {
                     removeEmojiFromFrequent(emoji);
-                    showToast('등록된 이모지가 삭제되었습니다!');
+                    showToast('이모지가 자주 쓰는 목록에서 삭제되었습니다!');
                 }, 1000); 
             });
 
@@ -56,11 +61,9 @@ document.addEventListener('DOMContentLoaded', () => {
             frequentEmojisContainer.appendChild(span);
         });
     } else {
-        // 자주 쓰는 이모지가 없을 때 메시지 표시
-        const message = document.createElement('div');
-        message.className = 'no-frequent';
-        message.textContent = '길게 클릭하면 자주 쓰는 이모지로 등록됩니다.';
-        frequentEmojisContainer.appendChild(message);
+        // 자주 쓰는 이모지가 없을 때 그리드를 숨기고 메시지 표시
+        frequentEmojisContainer.style.display = 'none';
+        noFrequentMessage.style.display = 'block';
     }
 }
 
