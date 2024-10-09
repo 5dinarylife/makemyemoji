@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 frequentEmojisContainer.appendChild(span);
             });
         } else {
-            frequentEmojisContainer.innerHTML = '<div class="no-frequent">등록된 이모지가 없습니다.</div>';
+            frequentEmojisContainer.innerHTML = '<div class="no-frequent">이모지를 길게 누르면 자주 쓰는 이모지로 등록됩니다.</div>';
         }
     }
 
