@@ -122,3 +122,11 @@ document.addEventListener('DOMContentLoaded', () => {
             loadFrequentEmojis();
         }
     }
+
+    function removeEmojiFromFrequent(emoji) {
+        let frequentEmojis = getFrequentEmojis();
+        frequentEmojis = frequentEmojis.filter(e => e !== emoji);
+        localStorage.setItem('frequentEmojis', JSON.stringify(frequentEmojis));
+        loadFrequentEmojis();
+    }
+});
