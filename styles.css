@@ -76,10 +76,11 @@ h1 {
 }
 
 /* 자주 쓰는 이모지가 없을 때 메시지 스타일 */
-div.no-frequent {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+/* no-frequent 클래스가 div 요소에 적용되도록 명시도 높이기 */
+div#no-frequent-message.no-frequent {
+    display: flex; /* flex를 설정 */
+    align-items: center; /* 수직 중앙 정렬 */
+    justify-content: center; /* 수평 중앙 정렬 */
     height: 50px;
     font-size: 14px;
     color: #888;
@@ -89,7 +90,9 @@ div.no-frequent {
     margin-bottom: 10px;
     padding: 5px;
     width: 100%;
+    flex-direction: row; /* flex 방향을 명확하게 설정 */
 }
+
 
 .emoji {
     font-size: 22px;
