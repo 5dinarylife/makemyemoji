@@ -76,8 +76,8 @@ h1 {
 }
 
 /* 자주 쓰는 이모지가 없을 때 메시지 스타일 */
-div .no-frequent {
-    display: flex !important;
+div.no-frequent {
+    display: flex;
     align-items: center;
     justify-content: center;
     height: 50px;
