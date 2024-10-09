@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
     clearButton.addEventListener('click', () => {
         localStorage.removeItem('frequentEmojis');
         loadFrequentEmojis();
-        showToast('모든 자주 쓰는 이모지가 삭제되었습니다!');
+        showToast('등록된 모든 이모지가 삭제되었습니다!');
     });
 
     function loadFrequentEmojis() {
