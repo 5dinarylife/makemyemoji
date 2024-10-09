@@ -71,6 +71,13 @@ h1 {
     transform: scale(1.2);
 }
 
+/* 자주 쓰는 이모지가 없을 때 */
+.no-frequent {
+    font-size: 12px;
+    color: #888;
+    margin: 10px 0;
+}
+
 /* 토스트 메시지 스타일 */
 .toast {
     visibility: hidden;
