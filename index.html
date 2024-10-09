@@ -7,47 +7,127 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            padding: 10px;
+            padding: 5px;
             text-align: center;
+            background-color: #f0f0f0;
+            margin: 0;
+            width: 350px; /* 팝업 너비 증가 */
+        }
+        h1 {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        .tabs {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .tab {
+            cursor: pointer;
+            padding: 5px 8px;
+            background-color: #ddd;
+            border-radius: 5px;
+            transition: background-color 0.2s;
+            font-size: 12px;
+        }
+        .tab:hover {
+            background-color: #bbb;
+        }
+        .tab.active {
+            background-color: #bbb;
+        }
+        .emoji-list {
+            display: none;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            max-height: 200px;
+            overflow-y: auto;
+            padding: 5px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+        .emoji-list.active {
+            display: grid;
         }
         .emoji {
-            font-size: 24px;
+            font-size: 22px;
             cursor: pointer;
-            margin: 10px;
-            display: inline-block;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 35px;
+            height: 35px;
+            transition: transform 0.2s;
+        }
+        .emoji:hover {
+            transform: scale(1.2);
         }
     </style>
 </head>
 <body>
     <h1>이모지 선택</h1>
-    <div id="emoji-list">
-        <span class="emoji">😀</span>
-        <span class="emoji">😂</span>
-        <span class="emoji">😍</span>
-        <span class="emoji">😎</span>
-        <span class="emoji">🤔</span>
-        <span class="emoji">👍</span>
-        <!-- 더 많은 이모지를 추가할 수 있습니다 -->
+    <div class="tabs">
+        <div class="tab" data-category="smileys">감정</div>
+        <div class="tab" data-category="animals">동물</div>
+        <div class="tab" data-category="food">음식</div>
+        <div class="tab" data-category="activities">활동</div>
+        <div class="tab" data-category="travel">여행</div>
+        <div class="tab" data-category="objects">사물</div>
+        <div class="tab" data-category="symbols">기호</div>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            document.querySelectorAll('.emoji').forEach(emoji => {
-                emoji.addEventListener('click', () => {
-                    const text = emoji.textContent;
-                    copyToClipboard(text);
-                });
-            });
+    <div id="smileys" class="emoji-list active">
+        <span class="emoji">😀</span><span class="emoji">😂</span><span class="emoji">😊</span>
+        <span class="emoji">😍</span><span class="emoji">😎</span><span class="emoji">😢</span>
+        <span class="emoji">😡</span><span class="emoji">😱</span><span class="emoji">😴</span>
+        <span class="emoji">🤔</span><span class="emoji">😇</span><span class="emoji">🤩</span>
+        <span class="emoji">🤯</span><span class="emoji">😤</span><span class="emoji">🥳</span>
+    </div>
 
-            function copyToClipboard(text) {
-                // 최신 브라우저에서 권장되는 방식 사용
-                navigator.clipboard.writeText(text).then(() => {
-                    alert('이모지가 클립보드에 복사되었습니다: ' + text);
-                }).catch(err => {
-                    console.error('클립보드 복사 실패:', err);
-                });
-            }
-        });
-    </script>
-</body>
-</html>
+    <div id="animals" class="emoji-list">
+        <span class="emoji">🐶</span><span class="emoji">🐱</span><span class="emoji">🐭</span>
+        <span class="emoji">🐰</span><span class="emoji">🦊</span><span class="emoji">🐻</span>
+        <span class="emoji">🐼</span><span class="emoji">🐨</span><span class="emoji">🐯</span>
+        <span class="emoji">🦁</span><span class="emoji">🐸</span><span class="emoji">🐵</span>
+        <span class="emoji">🐷</span><span class="emoji">🐧</span><span class="emoji">🦄</span>
+    </div>
+
+    <div id="food" class="emoji-list">
+        <span class="emoji">🍏</span><span class="emoji">🍎</span><span class="emoji">🍉</span>
+        <span class="emoji">🍇</span><span class="emoji">🍌</span><span class="emoji">🍒</span>
+        <span class="emoji">🍔</span><span class="emoji">🍕</span><span class="emoji">🍣</span>
+        <span class="emoji">🍩</span><span class="emoji">🥤</span><span class="emoji">🍜</span>
+        <span class="emoji">🍦</span><span class="emoji">🍪</span><span class="emoji">🍫</span>
+    </div>
+
+    <div id="activities" class="emoji-list">
+        <span class="emoji">⚽</span><span class="emoji">🏀</span><span class="emoji">🏈</span>
+        <span class="emoji">⚾</span><span class="emoji">🎾</span><span class="emoji">🏐</span>
+        <span class="emoji">🏓</span><span class="emoji">🏸</span><span class="emoji">🎣</span>
+        <span class="emoji">🎳</span><span class="emoji">⛹️</span><span class="emoji">🏋️</span>
+        <span class="emoji">🚴</span><span class="emoji">🏇</span><span class="emoji">🏊</span>
+    </div>
+
+    <div id="travel" class="emoji-list">
+        <span class="emoji">🚗</span><span class="emoji">🚌</span><span class="emoji">🚲</span>
+        <span class="emoji">✈️</span><span class="emoji">🚀</span><span class="emoji">🚢</span>
+        <span class="emoji">🗽</span><span class="emoji">🏰</span><span class="emoji">🏝️</span>
+        <span class="emoji">🏜️</span><span class="emoji">🏔️</span><span class="emoji">🏕️</span>
+        <span class="emoji">🏟️</span><span class="emoji">🌋</span><span class="emoji">🛳️</span>
+    </div>
+
+    <div id="objects" class="emoji-list">
+        <span class="emoji">📱</span><span class="emoji">💻</span><span class="emoji">🖨️</span>
+        <span class="emoji">🖱️</span><span class="emoji">💡</span><span class="emoji">🔦</span>
+        <span class="emoji">🔧</span><span class="emoji">🧰</span><span class="emoji">🪚</span>
+        <span class="emoji">⚖️</span><span class="emoji">🔒</span><span class="emoji">🗝️</span>
+        <span class="emoji">🧯</span><span class="emoji">🔑</span><span class="emoji">🛠️</span>
+    </div>
+
+    <div id="symbols" class="emoji-list">
+        <span class="emoji">❤️</span><span class="emoji">💔</span><span class="emoji">✨</span>
+        <span class="emoji">🔥</span><span class="emoji">🌈</span><span class="emoji">💧</span>
+        <span class="emoji">☀️</span><span class="emoji">🌙</span><span class="emoji">⭐</span>
+        <span class="emoji">⚡</span><span class="emoji">❄️</span><span class="emoji">☔</span>
+        <span class="emoji">♻️</span><span class="emoji">☯️</span><span class="emoji">
