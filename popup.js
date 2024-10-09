@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const tabs = document.querySelectorAll('.tab');
     const emojiContainer = document.getElementById('emoji-container');
     const frequentEmojisContainer = document.getElementById('frequent-emojis');
+    const clearButton = document.getElementById('clear-frequent');
     const toast = document.getElementById('toast');
 
     loadFrequentEmojis();
@@ -16,6 +17,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    clearButton.addEventListener('click', () => {
+        localStorage.removeItem('frequentEmojis');
+        loadFrequentEmojis();
+        showToast('모든 자주 쓰는 이모지가 삭제되었습니다!');
+    });
+
     function loadFrequentEmojis() {
         frequentEmojisContainer.innerHTML = '';
         const frequentEmojis = getFrequentEmojis();
@@ -27,6 +34,24 @@ document.addEventListener('DOMContentLoaded', () => {
                 span.addEventListener('click', () => {
                     copyToClipboard(emoji);
                 });
+
+                // 길게 눌렀을 때 삭제
+                let pressTimer;
+                span.addEventListener('mousedown', () => {
+                    pressTimer = setTimeout(() => {
+                        removeEmojiFromFrequent(emoji);
+                        showToast('이모지가 자주 쓰는 목록에서 삭제되었습니다!');
+                    }, 1000); 
+                });
+
+                span.addEventListener('mouseup', () => {
+                    clearTimeout(pressTimer);
+                });
+
+                span.addEventListener('mouseleave', () => {
+                    clearTimeout(pressTimer);
+                });
+
                 frequentEmojisContainer.appendChild(span);
             });
         } else {
@@ -97,4 +122,5 @@ document.addEventListener('DOMContentLoaded', () => {
             loadFrequentEmojis();
         }
     }
-});
+
+   
