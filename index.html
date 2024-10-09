@@ -11,7 +11,7 @@
             text-align: center;
             background-color: #f0f0f0;
             margin: 0;
-            width: 350px; /* 팝업 너비 증가 */
+            width: 350px;
         }
         h1 {
             font-size: 16px;
@@ -63,6 +63,34 @@
         .emoji:hover {
             transform: scale(1.2);
         }
+        /* 토스트 메시지 스타일 */
+        .toast {
+            visibility: hidden;
+            min-width: 200px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 4px;
+            padding: 10px;
+            position: fixed;
+            z-index: 1;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 14px;
+        }
+        .toast.show {
+            visibility: visible;
+            animation: fadein 0.5s, fadeout 0.5s 2.5s;
+        }
+        @keyframes fadein {
+            from {bottom: 0; opacity: 0;}
+            to {bottom: 30px; opacity: 1;}
+        }
+        @keyframes fadeout {
+            from {bottom: 30px; opacity: 1;}
+            to {bottom: 0; opacity: 0;}
+        }
     </style>
 </head>
 <body>
@@ -83,6 +111,7 @@
         <span class="emoji">😡</span><span class="emoji">😱</span><span class="emoji">😴</span>
         <span class="emoji">🤔</span><span class="emoji">😇</span><span class="emoji">🤩</span>
         <span class="emoji">🤯</span><span class="emoji">😤</span><span class="emoji">🥳</span>
+        <span class="emoji">😜</span><span class="emoji">😋</span><span class="emoji">😘</span>
     </div>
 
     <div id="animals" class="emoji-list">
@@ -90,15 +119,58 @@
         <span class="emoji">🐰</span><span class="emoji">🦊</span><span class="emoji">🐻</span>
         <span class="emoji">🐼</span><span class="emoji">🐨</span><span class="emoji">🐯</span>
         <span class="emoji">🦁</span><span class="emoji">🐸</span><span class="emoji">🐵</span>
-        <span class="emoji">🐷</span><span class="emoji">🐧</span><span class="emoji">🦄</span>
+        <span class="emoji">🦄</span><span class="emoji">🐔</span><span class="emoji">🐧</span>
+        <span class="emoji">🐙</span><span class="emoji">🦋</span><span class="emoji">🐠</span>
     </div>
 
-    <!-- 다른 카테고리 섹션들... -->
+    <div id="food" class="emoji-list">
+        <span class="emoji">🍏</span><span class="emoji">🍎</span><span class="emoji">🍉</span>
+        <span class="emoji">🍇</span><span class="emoji">🍌</span><span class="emoji">🍒</span>
+        <span class="emoji">🍔</span><span class="emoji">🍕</span><span class="emoji">🍣</span>
+        <span class="emoji">🍩</span><span class="emoji">🍪</span><span class="emoji">🍦</span>
+        <span class="emoji">🥗</span><span class="emoji">🍜</span><span class="emoji">🍤</span>
+        <span class="emoji">🍹</span><span class="emoji">🍫</span><span class="emoji">🍰</span>
+    </div>
+
+    <div id="activities" class="emoji-list">
+        <span class="emoji">⚽</span><span class="emoji">🏀</span><span class="emoji">🏈</span>
+        <span class="emoji">⚾</span><span class="emoji">🎾</span><span class="emoji">🏐</span>
+        <span class="emoji">🏓</span><span class="emoji">🏸</span><span class="emoji">🥋</span>
+        <span class="emoji">🎣</span><span class="emoji">🎳</span><span class="emoji">🏹</span>
+        <span class="emoji">🏊</span><span class="emoji">🚴</span><span class="emoji">🧘</span>
+    </div>
+
+    <div id="travel" class="emoji-list">
+        <span class="emoji">🚗</span><span class="emoji">🚌</span><span class="emoji">🚲</span>
+        <span class="emoji">✈️</span><span class="emoji">🚀</span><span class="emoji">🚢</span>
+        <span class="emoji">🏨</span><span class="emoji">🏝️</span><span class="emoji">🏜️</span>
+        <span class="emoji">🏔️</span><span class="emoji">🏕️</span><span class="emoji">🗽</span>
+        <span class="emoji">🗻</span><span class="emoji">🌋</span><span class="emoji">🛳️</span>
+    </div>
+
+    <div id="objects" class="emoji-list">
+        <span class="emoji">📱</span><span class="emoji">💻</span><span class="emoji">🖨️</span>
+        <span class="emoji">🖱️</span><span class="emoji">💡</span><span class="emoji">🔦</span>
+        <span class="emoji">🔧</span><span class="emoji">🧰</span><span class="emoji">🔑</span>
+        <span class="emoji">⚖️</span><span class="emoji">🔒</span><span class="emoji">🗝️</span>
+        <span class="emoji">📷</span><span class="emoji">📚</span><span class="emoji">🧯</span>
+    </div>
+
+    <div id="symbols" class="emoji-list">
+        <span class="emoji">❤️</span><span class="emoji">💔</span><span class="emoji">✨</span>
+        <span class="emoji">🔥</span><span class="emoji">🌈</span><span class="emoji">💧</span>
+        <span class="emoji">☀️</span><span class="emoji">🌙</span><span class="emoji">⭐</span>
+        <span class="emoji">⚡</span><span class="emoji">❄️</span><span class="emoji">☔</span>
+        <span class="emoji">☮️</span><span class="emoji">♻️</span><span class="emoji">⚠️</span>
+    </div>
+
+    <div id="toast" class="toast">이모지가 클립보드에 복사되었습니다!</div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const tabs = document.querySelectorAll('.tab');
             const emojiLists = document.querySelectorAll('.emoji-list');
+            const toast = document.getElementById('toast');
 
             tabs.forEach(tab => {
                 tab.addEventListener('click', () => {
@@ -121,20 +193,26 @@
             function copyToClipboard(text) {
                 if (navigator.clipboard && navigator.clipboard.writeText) {
                     navigator.clipboard.writeText(text).then(() => {
-                        alert('이모지가 클립보드에 복사되었습니다: ' + text);
+                        showToast();
                     }).catch(err => {
                         console.error('클립보드 복사 실패:', err);
                     });
                 } else {
-                    // 클립보드 API를 지원하지 않는 경우
                     const tempInput = document.createElement('textarea');
                     tempInput.value = text;
                     document.body.appendChild(tempInput);
                     tempInput.select();
                     document.execCommand('copy');
                     document.body.removeChild(tempInput);
-                    alert('이모지가 클립보드에 복사되었습니다: ' + text);
+                    showToast();
                 }
+            }
+
+            function showToast() {
+                toast.classList.add('show');
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 3000);
             }
         });
     </script>
