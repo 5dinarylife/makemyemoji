@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 span.addEventListener('mousedown', () => {
                     pressTimer = setTimeout(() => {
                         removeEmojiFromFrequent(emoji);
-                        showToast('이모지가 자주 쓰는 목록에서 삭제되었습니다!');
+                        showToast('등록된 이미지가 삭제되었습니다!');
                     }, 1000); 
                 });
 
@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 frequentEmojisContainer.appendChild(span);
             });
         } else {
-            frequentEmojisContainer.innerHTML = '<div class="no-frequent">등록된 자주 쓰는 이모지가 없습니다.</div>';
+            frequentEmojisContainer.innerHTML = '<div class="no-frequent">등록된 이모지가 없습니다.</div>';
         }
     }
 
