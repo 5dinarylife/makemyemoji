@@ -93,41 +93,50 @@
         <span class="emoji">🐷</span><span class="emoji">🐧</span><span class="emoji">🦄</span>
     </div>
 
-    <div id="food" class="emoji-list">
-        <span class="emoji">🍏</span><span class="emoji">🍎</span><span class="emoji">🍉</span>
-        <span class="emoji">🍇</span><span class="emoji">🍌</span><span class="emoji">🍒</span>
-        <span class="emoji">🍔</span><span class="emoji">🍕</span><span class="emoji">🍣</span>
-        <span class="emoji">🍩</span><span class="emoji">🥤</span><span class="emoji">🍜</span>
-        <span class="emoji">🍦</span><span class="emoji">🍪</span><span class="emoji">🍫</span>
-    </div>
+    <!-- 다른 카테고리 섹션들... -->
 
-    <div id="activities" class="emoji-list">
-        <span class="emoji">⚽</span><span class="emoji">🏀</span><span class="emoji">🏈</span>
-        <span class="emoji">⚾</span><span class="emoji">🎾</span><span class="emoji">🏐</span>
-        <span class="emoji">🏓</span><span class="emoji">🏸</span><span class="emoji">🎣</span>
-        <span class="emoji">🎳</span><span class="emoji">⛹️</span><span class="emoji">🏋️</span>
-        <span class="emoji">🚴</span><span class="emoji">🏇</span><span class="emoji">🏊</span>
-    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tabs = document.querySelectorAll('.tab');
+            const emojiLists = document.querySelectorAll('.emoji-list');
 
-    <div id="travel" class="emoji-list">
-        <span class="emoji">🚗</span><span class="emoji">🚌</span><span class="emoji">🚲</span>
-        <span class="emoji">✈️</span><span class="emoji">🚀</span><span class="emoji">🚢</span>
-        <span class="emoji">🗽</span><span class="emoji">🏰</span><span class="emoji">🏝️</span>
-        <span class="emoji">🏜️</span><span class="emoji">🏔️</span><span class="emoji">🏕️</span>
-        <span class="emoji">🏟️</span><span class="emoji">🌋</span><span class="emoji">🛳️</span>
-    </div>
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    emojiLists.forEach(list => list.classList.remove('active'));
 
-    <div id="objects" class="emoji-list">
-        <span class="emoji">📱</span><span class="emoji">💻</span><span class="emoji">🖨️</span>
-        <span class="emoji">🖱️</span><span class="emoji">💡</span><span class="emoji">🔦</span>
-        <span class="emoji">🔧</span><span class="emoji">🧰</span><span class="emoji">🪚</span>
-        <span class="emoji">⚖️</span><span class="emoji">🔒</span><span class="emoji">🗝️</span>
-        <span class="emoji">🧯</span><span class="emoji">🔑</span><span class="emoji">🛠️</span>
-    </div>
+                    tab.classList.add('active');
+                    const category = tab.getAttribute('data-category');
+                    document.getElementById(category).classList.add('active');
+                });
+            });
 
-    <div id="symbols" class="emoji-list">
-        <span class="emoji">❤️</span><span class="emoji">💔</span><span class="emoji">✨</span>
-        <span class="emoji">🔥</span><span class="emoji">🌈</span><span class="emoji">💧</span>
-        <span class="emoji">☀️</span><span class="emoji">🌙</span><span class="emoji">⭐</span>
-        <span class="emoji">⚡</span><span class="emoji">❄️</span><span class="emoji">☔</span>
-        <span class="emoji">♻️</span><span class="emoji">☯️</span><span class="emoji">
+            document.querySelectorAll('.emoji').forEach(emoji => {
+                emoji.addEventListener('click', () => {
+                    const text = emoji.textContent;
+                    copyToClipboard(text);
+                });
+            });
+
+            function copyToClipboard(text) {
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(text).then(() => {
+                        alert('이모지가 클립보드에 복사되었습니다: ' + text);
+                    }).catch(err => {
+                        console.error('클립보드 복사 실패:', err);
+                    });
+                } else {
+                    // 클립보드 API를 지원하지 않는 경우
+                    const tempInput = document.createElement('textarea');
+                    tempInput.value = text;
+                    document.body.appendChild(tempInput);
+                    tempInput.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(tempInput);
+                    alert('이모지가 클립보드에 복사되었습니다: ' + text);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
