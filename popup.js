@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
             span.addEventListener('mousedown', () => {
                 pressTimer = setTimeout(() => {
                     removeEmojiFromFrequent(emoji);
-                    showToast('이모지가 자주 쓰는 목록에서 삭제되었습니다!');
+                    showToast('등록된 이모지가 삭제되었습니다!');
                 }, 1000); 
             });
 
@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // 자주 쓰는 이모지가 없을 때 메시지 표시
         const message = document.createElement('div');
         message.className = 'no-frequent';
-        message.textContent = '등록된 자주 쓰는 이모지가 없습니다.';
+        message.textContent = '길게 클릭하면 자주 쓰는 이모지로 등록됩니다.';
         frequentEmojisContainer.appendChild(message);
     }
 }
@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
             span.addEventListener('mousedown', () => {
                 pressTimer = setTimeout(() => {
                     addEmojiToFrequent(emoji);
-                    showToast('이모지가 자주 쓰는 목록에 추가되었습니다!');
+                    showToast('이모지가 목록에 등록되었습니다!');
                 }, 1000); 
             });
 
