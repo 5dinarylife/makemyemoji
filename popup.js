@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
             span.addEventListener('mousedown', () => {
                 pressTimer = setTimeout(() => {
                     removeEmojiFromFrequent(emoji);
-                    showToast('이모지가 자주 쓰는 목록에서 삭제되었습니다!');
+                    showToast('이모지가 목록에서 삭제되었습니다!');
                 }, 1000); 
             });
 
