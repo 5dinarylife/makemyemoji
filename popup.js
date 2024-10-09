@@ -24,10 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
         showToast('등록된 모든 이모지가 삭제되었습니다!');
     });
 
-    function loadFrequentEmojis() {
-    const noFrequentMessage = document.getElementById('no-frequent-message');
-    const frequentEmojis = getFrequentEmojis();
-
+   
     function loadFrequentEmojis() {
     const noFrequentMessage = document.getElementById('no-frequent-message');
     const frequentEmojis = getFrequentEmojis();
