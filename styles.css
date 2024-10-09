@@ -20,6 +20,22 @@ h1 {
     text-align: left;
 }
 
+.clear-button {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin: 5px 0;
+    cursor: pointer;
+    font-size: 12px;
+    transition: background-color 0.3s;
+}
+
+.clear-button:hover {
+    background-color: #c0392b;
+}
+
 .tabs {
     display: flex;
     justify-content: space-between;
@@ -73,7 +89,7 @@ h1 {
 
 /* 자주 쓰는 이모지가 없을 때 */
 .no-frequent {
-    font-size: 10px;
+    font-size: 12px;
     color: #888;
     margin: 10px 0;
 }
@@ -106,6 +122,4 @@ h1 {
 }
 
 @keyframes fadeout {
-    from {bottom: 30px; opacity: 1;}
-    to {bottom: 0; opacity: 0;}
-}
+   
