@@ -5,15 +5,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const clearButton = document.getElementById('clear-frequent');
     const toast = document.getElementById('toast');
 
+    // 초기 탭을 'smileys'로 설정하고, 자주 쓰는 이모지를 로드합니다.
     loadFrequentEmojis();
-    loadEmojis('smileys');
+    loadEmojis('smileys'); // 초기 로드 시 카테고리가 'smileys'로 설정된 부분
 
     tabs.forEach(tab => {
         tab.addEventListener('click', () => {
             tabs.forEach(t => t.classList.remove('active'));
             tab.classList.add('active');
             const category = tab.getAttribute('data-category');
-            loadEmojis(category);
+            loadEmojis(category); // 카테고리에 맞는 이모지를 로드
         });
     });
 
@@ -35,7 +36,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     copyToClipboard(emoji);
                 });
 
-                // 길게 눌렀을 때 삭제
                 let pressTimer;
                 span.addEventListener('mousedown', () => {
                     pressTimer = setTimeout(() => {
@@ -61,6 +61,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function loadEmojis(category) {
         emojiContainer.innerHTML = ''; 
+        if (!emojiData[category]) {
+            console.error(`카테고리 '${category}'에 해당하는 이모지가 없습니다.`);
+            return;
+        }
+
         const emojis = emojiData[category];
         emojis.forEach(emoji => {
             const span = document.createElement('span');
