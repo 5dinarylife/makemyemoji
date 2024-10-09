@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const frequentEmojisContainer = document.getElementById('frequent-emojis');
     const toast = document.getElementById('toast');
 
-    // 초기 로딩 시 자주 쓰는 이모지 표시
     loadFrequentEmojis();
     loadEmojis('smileys');
 
@@ -36,25 +35,23 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function loadEmojis(category) {
-        emojiContainer.innerHTML = ''; // 기존 이모지 비우기
+        emojiContainer.innerHTML = ''; 
         const emojis = emojiData[category];
         emojis.forEach(emoji => {
             const span = document.createElement('span');
             span.className = 'emoji';
             span.textContent = emoji;
 
-            // 클릭 이벤트 (복사 기능)
             span.addEventListener('click', () => {
                 copyToClipboard(emoji);
             });
 
-            // 길게 클릭 (자주 쓰는 이모지 등록 기능)
             let pressTimer;
             span.addEventListener('mousedown', () => {
                 pressTimer = setTimeout(() => {
                     addEmojiToFrequent(emoji);
                     showToast('이모지가 자주 쓰는 목록에 추가되었습니다!');
-                }, 1000); // 1초 이상 눌렀을 때 등록
+                }, 1000); 
             });
 
             span.addEventListener('mouseup', () => {
@@ -97,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!frequentEmojis.includes(emoji)) {
             frequentEmojis.push(emoji);
             localStorage.setItem('frequentEmojis', JSON.stringify(frequentEmojis));
-            loadFrequentEmojis(); // 자주 쓰는 이모지 새로고침
+            loadFrequentEmojis();
         }
     }
 });
