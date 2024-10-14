@@ -12,32 +12,12 @@ h1 {
     margin-bottom: 10px;
 }
 
-/* 자주 쓰는 이모지와 모두 삭제 버튼을 flex로 배치 */
-.frequent-header {
-    display: flex;
-    justify-content: space-between; /* 양 끝에 배치 */
-    align-items: center; /* 수직 중앙 정렬 */
-    margin-bottom: 10px;
-}
-
-.clear-button {
-    background-color: #e74c3c;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 12px;
-    transition: background-color 0.3s;
-}
-
-.clear-button:hover {
-    background-color: #c0392b;
-}
-
 .title {
     font-size: 14px;
     font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    text-align: left;
 }
 
 .clear-button {
@@ -96,11 +76,10 @@ h1 {
 }
 
 /* 자주 쓰는 이모지가 없을 때 메시지 스타일 */
-/* no-frequent 클래스가 div 요소에 적용되도록 명시도 높이기 */
-div#no-frequent-message.no-frequent {
-    display: flex; /* flex를 설정 */
-    align-items: center; /* 수직 중앙 정렬 */
-    justify-content: center; /* 수평 중앙 정렬 */
+.no-frequent {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     height: 50px;
     font-size: 14px;
     color: #888;
@@ -110,9 +89,7 @@ div#no-frequent-message.no-frequent {
     margin-bottom: 10px;
     padding: 5px;
     width: 100%;
-    flex-direction: row; /* flex 방향을 명확하게 설정 */
 }
-
 
 .emoji {
     font-size: 22px;
