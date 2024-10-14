@@ -1,11 +1,17 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick-moji</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
 <body>
     <h1>Quick-Moji</h1>
-    <div class="frequent-header">
-        <div id="frequent-title" class="title">자주 쓰는 이모지</div>
-        <button id="clear-frequent" class="clear-button">모두 삭제</button>
-    </div>
+    <div id="frequent-title" class="title">자주 쓰는 이모지</div>
     <div id="no-frequent-message" class="no-frequent">이모지를 길게 클릭하면 자주 쓰는 이모지로 등록됩니다.</div>
     <div id="frequent-emojis" class="emoji-container"></div>
+    <button id="clear-frequent" class="clear-button">모두 삭제</button>
     <div class="tabs">
         <div class="tab" data-category="smileys">감정</div>
         <div class="tab" data-category="animals">동물</div>
@@ -20,3 +26,4 @@
     <script src="emoji.js"></script>
     <script src="popup.js"></script>
 </body>
+</html>
