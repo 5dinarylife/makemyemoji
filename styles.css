@@ -1,3 +1,17 @@
+body {
+    font-family: Arial, sans-serif;
+    padding: 5px;
+    text-align: center;
+    background-color: #f0f0f0;
+    margin: 0;
+    width: 350px;
+}
+
+h1 {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
 /* 자주 쓰는 이모지와 모두 삭제 버튼을 flex로 배치 */
 .frequent-header {
     display: flex;
