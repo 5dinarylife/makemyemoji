@@ -27,16 +27,6 @@ h1 {
     margin-bottom: 10px;
 }
 
-.clear-button {
-    background-color: #e74c3c;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 12px;
-    transition: background-color 0.3s;
-}
 
 .clear-button {
     background-color: #e74c3c;
@@ -44,7 +34,6 @@ h1 {
     border: none;
     padding: 5px 10px;
     border-radius: 5px;
-    margin: 5px 0;
     cursor: pointer;
     font-size: 12px;
     transition: background-color 0.3s;
