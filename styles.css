@@ -15,18 +15,7 @@ h1 {
 .title {
     font-size: 14px;
     font-weight: bold;
-    margin-top: 10px;
-    margin-bottom: 5px;
-    text-align: left;
 }
-
-.frequent-header {
-    display: flex;
-    justify-content: space-between; /* 양 끝에 배치 */
-    align-items: center; /* 수직 중앙 정렬 */
-    margin-bottom: 10px;
-}
-
 
 .clear-button {
     background-color: #e74c3c;
@@ -34,6 +23,7 @@ h1 {
     border: none;
     padding: 5px 10px;
     border-radius: 5px;
+    margin: 5px 0;
     cursor: pointer;
     font-size: 12px;
     transition: background-color 0.3s;
@@ -41,6 +31,14 @@ h1 {
 
 .clear-button:hover {
     background-color: #c0392b;
+}
+
+/* 자주 쓰는 이모지 및 삭제 버튼을 flex로 배치 */
+.frequent-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
 }
 
 .tabs {
@@ -69,10 +67,10 @@ h1 {
 
 .emoji-container {
     display: grid;
-    grid-template-columns: repeat(7, 1fr);
+    grid-template-columns: repeat(7, 1fr); /* 한 줄에 7개의 이모지 */
     gap: 5px;
-    max-height: 200px;
-    overflow-y: auto;
+    max-height: 200px; /* 최대 높이 */
+    overflow-y: auto; /* 넘치면 스크롤 */
     padding: 10px;
     background-color: #fff;
     border-radius: 8px;
@@ -82,7 +80,6 @@ h1 {
     justify-items: center;
 }
 
-/* 자주 쓰는 이모지가 없을 때 메시지 스타일 */
 .no-frequent {
     display: flex;
     align-items: center;
@@ -113,9 +110,8 @@ h1 {
     transform: scale(1.2);
 }
 
-/* 토스트 메시지 스타일 */
 .toast {
-    visibility: hidden; /* 기본적으로 숨김 */
+    visibility: hidden;
     min-width: 200px;
     background-color: #333;
     color: #fff;
@@ -136,14 +132,4 @@ h1 {
     visibility: visible;
     opacity: 1;
     transition: opacity 0.5s ease-in-out;
-}
-
-@keyframes fadein {
-    from {bottom: 0; opacity: 0;}
-    to {bottom: 30px; opacity: 1;}
-}
-
-@keyframes fadeout {
-    from {bottom: 30px; opacity: 1;}
-    to {bottom: 0; opacity: 0;}
 }
