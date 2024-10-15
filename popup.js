@@ -143,4 +143,48 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('frequentEmojis', JSON.stringify(frequentEmojis));
         loadFrequentEmojis();
     }
+    
 });
+
+// 이모지 검색 기능
+document.getElementById('emoji-search').addEventListener('input', function () {
+    const query = this.value.toLowerCase();
+    const emojis = document.querySelectorAll('.emoji');
+    
+    emojis.forEach(emoji => {
+        if (emoji.textContent.toLowerCase().includes(query)) {
+            emoji.style.display = 'inline-block'; // 검색어에 맞는 이모지 표시
+        } else {
+            emoji.style.display = 'none'; // 검색어에 맞지 않는 이모지 숨김
+        }
+    });
+});
+
+// 번역 데이터
+const translations = {
+    ko: {
+        title: "자주 쓰는 이모지",
+        deleteButton: "모두 삭제",
+        searchPlaceholder: "이모지 검색...",
+    },
+    en: {
+        title: "Frequently Used Emojis",
+        deleteButton: "Clear All",
+        searchPlaceholder: "Search emoji...",
+    },
+    es: {
+        title: "Emojis usados frecuentemente",
+        deleteButton: "Borrar todo",
+        searchPlaceholder: "Buscar emoji...",
+    }
+};
+
+// 언어 변경 기능
+document.getElementById('language-select').addEventListener('change', function () {
+    const selectedLanguage = this.value;
+
+    document.getElementById('frequent-title').textContent = translations[selectedLanguage].title;
+    document.getElementById('clear-frequent').textContent = translations[selectedLanguage].deleteButton;
+    document.getElementById('emoji-search').placeholder = translations[selectedLanguage].searchPlaceholder;
+});
+
