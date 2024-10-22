@@ -4,48 +4,50 @@ document.addEventListener('DOMContentLoaded', () => {
     const frequentEmojisContainer = document.getElementById('frequent-emojis');
     const clearButton = document.getElementById('clear-frequent');
     const toast = document.getElementById('toast');
+    const searchInput = document.getElementById('emoji-search'); // 검색창
 
-    // 자주 쓰는 이모지 로드
-    loadFrequentEmojis();
-
-    // 카테고리 탭 클릭 이벤트
-    tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            const category = tab.getAttribute('data-category');
-            loadEmojis(category);
+    // 기본 이모지 렌더링 함수
+    function renderEmojis(emojis) {
+        emojiContainer.innerHTML = ''; // 기존 내용을 비움
+        emojis.forEach(emojiObj => {
+            const emojiElement = document.createElement('span');
+            emojiElement.classList.add('emoji');
+            emojiElement.textContent = emojiObj.emoji; // `emoji` 속성을 사용하여 이모지 출력
+            emojiElement.addEventListener('click', () => {
+                copyToClipboard(emojiObj.emoji);
+            });
+            emojiContainer.appendChild(emojiElement);
         });
-    });
+    }
 
-    // 이모지 검색 기능
-    document.getElementById('emoji-search').addEventListener('input', function () {
+    // 선택한 카테고리의 이모지를 로드하는 함수
+    function loadEmojis(category) {
+        if (!emojiData[category]) {
+            console.error(`카테고리 '${category}'에 해당하는 이모지가 없습니다.`);
+            return;
+        }
+        renderEmojis(emojiData[category]);
+    }
+
+    // 검색 기능
+    searchInput.addEventListener('input', function () {
         const query = this.value.toLowerCase();
-        const emojis = document.querySelectorAll('.emoji');
-        
-        emojis.forEach(emoji => {
-            if (emoji.textContent.toLowerCase().includes(query)) {
-                emoji.style.display = 'inline-block'; // 검색어에 맞는 이모지 표시
-            } else {
-                emoji.style.display = 'none'; // 검색어에 맞지 않는 이모지 숨김
-            }
-        });
+        const allEmojis = Object.values(emojiData).flat(); // 모든 카테고리의 이모지를 배열로 병합
+        const filteredEmojis = allEmojis.filter(emojiObj => 
+            emojiObj.tags.some(tag => tag.includes(query))
+        );
+        renderEmojis(filteredEmojis); // 필터링된 이모지 렌더링
     });
 
-    // 모두 삭제 버튼 클릭 이벤트
-    clearButton.addEventListener('click', () => {
-        localStorage.removeItem('frequentEmojis');
-        loadFrequentEmojis();
-        showToast('등록된 모든 이모지가 삭제되었습니다!');
-    });
-
-    // 자주 쓰는 이모지 로드 함수
+    // 자주 쓰는 이모지를 로드하는 함수
     function loadFrequentEmojis() {
         const noFrequentMessage = document.getElementById('no-frequent-message');
         const frequentEmojis = getFrequentEmojis();
 
         if (frequentEmojis.length > 0) {
             frequentEmojisContainer.innerHTML = '';
-            noFrequentMessage.style.display = 'none'; // 메시지 숨기기
-            frequentEmojisContainer.style.display = 'grid'; // 그리드 표시
+            noFrequentMessage.style.display = 'none';
+            frequentEmojisContainer.style.display = 'grid';
 
             frequentEmojis.forEach(emoji => {
                 const span = document.createElement('span');
@@ -55,13 +57,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     copyToClipboard(emoji);
                 });
 
-                // 길게 눌러서 자주 쓰는 목록에서 제거
                 let pressTimer;
                 span.addEventListener('mousedown', () => {
                     pressTimer = setTimeout(() => {
                         removeEmojiFromFrequent(emoji);
                         showToast('이모지가 자주 쓰는 목록에서 삭제되었습니다!');
-                    }, 1000); 
+                    }, 1000);
                 });
 
                 span.addEventListener('mouseup', () => {
@@ -76,50 +77,11 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         } else {
             frequentEmojisContainer.style.display = 'none';
-            noFrequentMessage.style.display = 'flex'; // 메시지 표시
+            noFrequentMessage.style.display = 'flex';
         }
     }
 
-    // 이모지 카테고리 로드 함수
-    function loadEmojis(category) {
-        emojiContainer.innerHTML = ''; 
-        if (!emojiData[category]) {
-            console.error(`카테고리 '${category}'에 해당하는 이모지가 없습니다.`);
-            return;
-        }
-
-        const emojis = emojiData[category];
-        emojis.forEach(emojiObj => {
-            const span = document.createElement('span');
-            span.className = 'emoji';
-            span.textContent = emojiObj.emoji; // 이모지 데이터에서 'emoji' 속성 사용
-
-            span.addEventListener('click', () => {
-                copyToClipboard(emojiObj.emoji);
-            });
-
-            // 길게 눌러서 자주 쓰는 목록에 추가
-            let pressTimer;
-            span.addEventListener('mousedown', () => {
-                pressTimer = setTimeout(() => {
-                    addEmojiToFrequent(emojiObj.emoji);
-                    showToast('이모지가 자주 쓰는 목록에 등록되었습니다!');
-                }, 1000); 
-            });
-
-            span.addEventListener('mouseup', () => {
-                clearTimeout(pressTimer);
-            });
-
-            span.addEventListener('mouseleave', () => {
-                clearTimeout(pressTimer);
-            });
-
-            emojiContainer.appendChild(span);
-        });
-    }
-
-    // 클립보드 복사 함수
+    // 클립보드에 이모지를 복사하는 함수
     function copyToClipboard(text) {
         if (navigator.clipboard && navigator.clipboard.writeText) {
             navigator.clipboard.writeText(text).then(() => {
@@ -130,13 +92,19 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // 자주 쓰는 이모지 로드 함수
+    function showToast(message) {
+        toast.textContent = message;
+        toast.classList.add('show');
+        setTimeout(() => {
+            toast.classList.remove('show');
+        }, 3000);
+    }
+
     function getFrequentEmojis() {
         const frequentEmojis = localStorage.getItem('frequentEmojis');
         return frequentEmojis ? JSON.parse(frequentEmojis) : [];
     }
 
-    // 자주 쓰는 이모지에 추가
     function addEmojiToFrequent(emoji) {
         let frequentEmojis = getFrequentEmojis();
         if (!frequentEmojis.includes(emoji)) {
@@ -146,7 +114,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // 자주 쓰는 이모지에서 제거
     function removeEmojiFromFrequent(emoji) {
         let frequentEmojis = getFrequentEmojis();
         frequentEmojis = frequentEmojis.filter(e => e !== emoji);
@@ -154,12 +121,19 @@ document.addEventListener('DOMContentLoaded', () => {
         loadFrequentEmojis();
     }
 
-    // 토스트 메시지 표시 함수
-    function showToast(message) {
-        toast.textContent = message;
-        toast.classList.add('show');
-        setTimeout(() => {
-            toast.classList.remove('show');
-        }, 3000);
-    }
+    // 탭 클릭 시 해당 카테고리 이모지를 불러오는 이벤트 추가
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            const category = tab.getAttribute('data-category');
+            loadEmojis(category);
+
+            // 탭 활성화 상태 업데이트
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+        });
+    });
+
+    // 기본으로 감정 이모지를 로드
+    loadEmojis('smileys');
+    loadFrequentEmojis();
 });
