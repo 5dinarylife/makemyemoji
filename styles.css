@@ -17,13 +17,20 @@ h1 {
     font-weight: bold;
 }
 
+/* 자주 쓰는 이모지 제목과 모두 삭제 버튼을 같은 라인에 배치 */
+.frequent-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
 .clear-button {
     background-color: #e74c3c;
     color: white;
     border: none;
     padding: 5px 10px;
     border-radius: 5px;
-    margin: 5px 0;
     cursor: pointer;
     font-size: 12px;
     transition: background-color 0.3s;
@@ -31,14 +38,6 @@ h1 {
 
 .clear-button:hover {
     background-color: #c0392b;
-}
-
-/* 자주 쓰는 이모지 및 삭제 버튼을 flex로 배치 */
-.frequent-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
 }
 
 .tabs {
@@ -65,6 +64,7 @@ h1 {
     background-color: #bbb;
 }
 
+/* 이모지 컨테이너 스타일 */
 .emoji-container {
     display: grid;
     grid-template-columns: repeat(7, 1fr); /* 한 줄에 7개의 이모지 */
@@ -80,6 +80,7 @@ h1 {
     justify-items: center;
 }
 
+/* 자주 쓰는 이모지가 없을 때의 메시지 스타일 */
 .no-frequent {
     display: flex;
     align-items: center;
@@ -95,6 +96,7 @@ h1 {
     width: 100%;
 }
 
+/* 이모지 스타일 */
 .emoji {
     font-size: 22px;
     cursor: pointer;
@@ -110,6 +112,7 @@ h1 {
     transform: scale(1.2);
 }
 
+/* Toast 메시지 스타일 */
 .toast {
     visibility: hidden;
     min-width: 200px;
