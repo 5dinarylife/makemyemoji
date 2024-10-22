@@ -5,18 +5,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const clearButton = document.getElementById('clear-frequent');
     const toast = document.getElementById('toast');
 
-    // 초기 탭을 'smileys'로 설정하고, 자주 쓰는 이모지를 로드합니다.
-    loadFrequentEmojis();
-    loadEmojis('smileys'); // 초기 로드 시 카테고리가 'smileys'로 설정된 부분
+    // 기존에 이모지 목록을 출력하는 부분이 있을 텐데,
+// 이를 수정해서 각 이모지의 `emoji` 속성을 가져오도록 변경합니다.
 
-    tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            tabs.forEach(t => t.classList.remove('active'));
-            tab.classList.add('active');
-            const category = tab.getAttribute('data-category');
-            loadEmojis(category); // 카테고리에 맞는 이모지를 로드
-        });
+function renderEmojis(emojis) {
+    const emojiContainer = document.getElementById('emoji-container');
+    emojiContainer.innerHTML = ''; // 기존 내용을 비웁니다.
+
+    emojis.forEach(emojiObj => {
+        const emojiElement = document.createElement('span');
+        emojiElement.classList.add('emoji');
+        emojiElement.textContent = emojiObj.emoji; // `emoji` 속성을 사용합니다.
+        emojiContainer.appendChild(emojiElement);
     });
+}
 
     clearButton.addEventListener('click', () => {
         localStorage.removeItem('frequentEmojis');
