@@ -16,6 +16,24 @@ document.addEventListener('DOMContentLoaded', () => {
             emojiElement.addEventListener('click', () => {
                 copyToClipboard(emojiObj.emoji);
             });
+
+            // 자주 쓰는 이모지 등록을 위해 길게 클릭할 경우 추가
+            let pressTimer;
+            emojiElement.addEventListener('mousedown', () => {
+                pressTimer = setTimeout(() => {
+                    addEmojiToFrequent(emojiObj.emoji);
+                    showToast('이모지가 자주 쓰는 목록에 등록되었습니다!');
+                }, 1000); // 1초 동안 길게 누르면 추가
+            });
+
+            emojiElement.addEventListener('mouseup', () => {
+                clearTimeout(pressTimer); // 길게 누르지 않으면 타이머 초기화
+            });
+
+            emojiElement.addEventListener('mouseleave', () => {
+                clearTimeout(pressTimer); // 마우스가 떠나면 타이머 초기화
+            });
+
             emojiContainer.appendChild(emojiElement);
         });
     }
@@ -57,6 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     copyToClipboard(emoji);
                 });
 
+                // 자주 쓰는 이모지를 삭제하기 위한 길게 누르기 이벤트
                 let pressTimer;
                 span.addEventListener('mousedown', () => {
                     pressTimer = setTimeout(() => {
