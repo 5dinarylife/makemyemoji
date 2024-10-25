@@ -25,6 +25,7 @@ h1 {
     margin-bottom: 10px;
 }
 
+/* 모두 삭제 버튼 스타일 */
 .clear-button {
     background-color: #e74c3c;
     color: white;
@@ -36,10 +37,12 @@ h1 {
     transition: background-color 0.3s;
 }
 
+/* 모두 삭제 버튼 호버 시 색상 변경 */
 .clear-button:hover {
     background-color: #c0392b;
 }
 
+/* 이모지 카테고리 탭 스타일 */
 .tabs {
     display: flex;
     justify-content: space-between;
@@ -47,6 +50,7 @@ h1 {
     margin-bottom: 10px;
 }
 
+/* 각 탭 스타일 */
 .tab {
     cursor: pointer;
     padding: 5px 8px;
@@ -56,10 +60,12 @@ h1 {
     font-size: 12px;
 }
 
+/* 탭 호버 시 색상 변경 */
 .tab:hover {
     background-color: #bbb;
 }
 
+/* 활성화된 탭 스타일 */
 .tab.active {
     background-color: #bbb;
 }
@@ -108,6 +114,7 @@ h1 {
     transition: transform 0.2s;
 }
 
+/* 이모지 호버 시 크기 확대 */
 .emoji:hover {
     transform: scale(1.2);
 }
@@ -131,8 +138,33 @@ h1 {
     opacity: 0;
 }
 
+/* Toast 메시지가 표시될 때의 스타일 */
 .toast.show {
     visibility: visible;
     opacity: 1;
     transition: opacity 0.5s ease-in-out;
+}
+
+/* 검색창 컨테이너 스타일 */
+#emoji-search-container {
+    display: flex;
+    justify-content: center;
+    margin: 15px 0;
+}
+
+/* 검색창 스타일 */
+#emoji-search {
+    width: 80%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    font-size: 14px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+}
+
+/* 검색창 포커스 시 스타일 */
+#emoji-search:focus {
+    outline: none;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
 }
