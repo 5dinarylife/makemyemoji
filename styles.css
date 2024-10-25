@@ -8,8 +8,16 @@ body {
 }
 
 h1 {
-    font-size: 16px;
+    font-size: 24px;
+    font-weight: bold;
     margin-bottom: 10px;
+    color: #333;
+    background: linear-gradient(90deg, #ff6b6b, #f0f0f0, #6b6bff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .title {
